@@ -1,53 +1,40 @@
 package com.example.usermanagement.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+import com.example.usermanagement.databinding.ActivityLoginBinding;
 
-import com.example.usermanagement.R;
-
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
-    EditText email,password;
-    Button login;
-    TextView registerlink;
+public class LoginActivity extends AppCompatActivity {
+    private ActivityLoginBinding binding;
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        email=findViewById(R.id.etemail);
-        password=findViewById(R.id.etpassword);
-        login=findViewById(R.id.loginBtn);
-        registerlink=findViewById(R.id.registerlink);
 
-        registerlink.setOnClickListener(this);
-        login.setOnClickListener(this);
+        // login button
+        binding.loginBtn.setOnClickListener(v -> {
+            if (binding.emailLayout.getEditText().getText().toString().isEmpty())
+                Toast.makeText(this, "please enter email id", Toast.LENGTH_SHORT).show();
+            else if (binding.passwordLayout.getEditText().getText().toString().isEmpty())
+                Toast.makeText(this, "please enter password", Toast.LENGTH_SHORT).show();
+            else
+                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+        });
+
+
+
+        binding.registerBtn.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        });
+
 
     }
 
 
-    @Override
-    public void onClick(View v) {
-
-        int id = v.getId();
-        if (id == R.id.loginBtn) {
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-        } else if (id == R.id.registerlink) {
-            switchOnRegister();
-        }
-    }
-
-    private void switchOnRegister() {
-
-        Intent i=new Intent(LoginActivity.this,MainActivity.class);
-        startActivity(i);
-    }
 }

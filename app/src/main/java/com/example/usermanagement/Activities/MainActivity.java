@@ -21,34 +21,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
 
-
+        // for login button
         binding.loginBtn.setOnClickListener(v -> {
-
+            // goto login screen
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         });
+
+
+        // register button
         binding.registerBtn.setOnClickListener(v -> {
-
-            if (binding.emailLayout.getEditText().getText().toString().isEmpty()){
-                Toast.makeText(this, "please enter email id ", Toast.LENGTH_SHORT).show();
-            } else if (binding.passwordLayout.getEditText().getText().toString().isEmpty()) {
-                Toast.makeText(this, "please enter password", Toast.LENGTH_SHORT).show();
-            } else if (binding.passwordLayout.getEditText().getText().toString().isEmpty()) {
+            if (binding.nameLayout.getEditText().getText().toString().isEmpty())
                 Toast.makeText(this, "please enter name", Toast.LENGTH_SHORT).show();
-            }
+            else if (binding.emailLayout.getEditText().getText().toString().isEmpty())
+                Toast.makeText(this, "please enter email id ", Toast.LENGTH_SHORT).show();
+            else if (binding.passwordLayout.getEditText().getText().toString().isEmpty())
+                Toast.makeText(this, "please enter password", Toast.LENGTH_SHORT).show();
             else
-                switchOnLogin();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
         });
 
+
+
+
     }
 
 
 
-    private void switchOnLogin() {
 
-        Intent i=new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(i);
-    }
 }

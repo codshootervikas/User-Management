@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
+
     private void switchOnLogin() {
 
         Intent i=new Intent(MainActivity.this, LoginActivity.class);

@@ -1,54 +1,41 @@
 package com.example.usermanagement.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.example.usermanagement.NavFragments.DashboardFragment;
 import com.example.usermanagement.NavFragments.ProfileFragment;
 import com.example.usermanagement.NavFragments.UserFragment;
 import com.example.usermanagement.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.usermanagement.databinding.ActivityHomeBinding;
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+   private ActivityHomeBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        bottomNavigationView=findViewById(R.id.bottomnav);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        loadFragment(new DashboardFragment());
-    }
+        getSupportFragmentManager().beginTransaction().add(R.id.relativelayout,new DashboardFragment()).commit();
+        binding.bottomNav.setOnItemSelectedListener(menuItem -> {
+            Fragment fragment=null;
+            if (menuItem.getItemId() == R.id.dashboard)
+                fragment = new DashboardFragment();
+             else if (menuItem.getItemId() == R.id.user)
+                fragment = new UserFragment();
+             else if (menuItem.getItemId() == R.id.profile)
+                fragment = new ProfileFragment();
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuitem) {
+            if (fragment!=null)
+                loadFragment(fragment);
 
-        Fragment fragment=null;
-
-        int itemId = menuitem.getItemId();
-        if (itemId == R.id.dashboard) {
-            fragment = new DashboardFragment();
-        } else if (itemId == R.id.user) {
-            fragment = new UserFragment();
-        } else if (itemId == R.id.profile) {
-            fragment = new ProfileFragment();
-        }
-
-        if (fragment!=null){
-            loadFragment(fragment);
-        }
-        return true;
+            return true;
+        });
     }
 
     void loadFragment(Fragment fragment){
-
-        //to attech fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.relativelayout,fragment).commit();
     }
 }

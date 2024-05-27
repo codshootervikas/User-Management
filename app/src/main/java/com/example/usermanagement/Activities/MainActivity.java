@@ -12,8 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.usermanagement.ModelResponse.RegisterResponse;
 import com.example.usermanagement.R;
+import com.example.usermanagement.RetrofitClient;
 import com.example.usermanagement.databinding.ActivityMainBinding;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -44,12 +50,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
         });
 
+        Call<RegisterResponse> call= RetrofitClient
+                .getInstance()
+                .getApi()
+                .register(binding.registerBtn);
+
+        call.enqueue(new Callback<RegisterResponse>() {
+            @Override
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+
+                RegisterResponse registerResponse=response.body();
+                if (response.isSuccessful()){
+
+                    Toast.makeText(MainActivity.this, registerResponse.getMessege(), Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, registerResponse.getMessege(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResponse> call, Throwable throwable) {
+
+                Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
     }
 
+  }
 
 
 
-}

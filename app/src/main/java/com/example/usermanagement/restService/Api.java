@@ -1,9 +1,7 @@
-package com.example.usermanagement;
+package com.example.usermanagement.restService;
 
 import android.widget.Button;
-
 import com.example.usermanagement.ModelResponse.RegisterResponse;
-
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -19,5 +17,8 @@ public interface Api {
             @Field("password") String password
     );
 
-    Call<RegisterResponse> register(Button registerBtn);
+
+
+
+//    Call<RegisterResponse> register(Button registerBtn);
 }

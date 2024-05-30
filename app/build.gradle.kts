@@ -47,8 +47,12 @@ dependencies {
     implementation ("com.google.android.material:material:1.12.0")
 
     //api retrofit gson dependency
-    implementation ("com.squareup.retrofit2:retrofit:(2.11.0)")
+    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    // chuckers
+    debugImplementation ("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 
 
 

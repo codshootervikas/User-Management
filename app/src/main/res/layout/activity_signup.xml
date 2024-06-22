@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".Activities.MainActivity">
+        tools:context=".Activities.SignUpActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -101,19 +101,19 @@
                 android:id="@+id/registerBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
-                android:background="#3BB5EC"
+                android:backgroundTint="#EA4C83"
                 android:text="Register"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:textColor="#fff"
                 app:layout_constraintTop_toBottomOf="@id/passwordLayout" />
 
             <TextView
-                android:id="@+id/loginBtn"
+                android:id="@+id/loginHereBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_height="48dp"
                 android:gravity="center"
                 android:text="Already register | Login here"
                 app:layout_constraintTop_toBottomOf="@id/registerBtn" />

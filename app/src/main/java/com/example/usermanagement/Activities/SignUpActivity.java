@@ -1,49 +1,47 @@
 package com.example.usermanagement.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.Toast;
 
-import com.example.usermanagement.ModelResponse.RegisterResponse;
-import com.example.usermanagement.restService.RetrofitClient;
-import com.example.usermanagement.databinding.ActivityMainBinding;
+import com.example.usermanagement.databinding.ActivitySignupBinding;
 import com.example.usermanagement.viewModel.RegisterViewModel;
 
 import java.util.Objects;
 
 import kotlin.text.Regex;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+public class SignUpActivity extends AppCompatActivity {
+    private ActivitySignupBinding binding;
     private RegisterViewModel viewModel;
+    String loginHereText = "<span> Already registered | <font color='#0342FF'><b>Login here</b></font> </span>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.loginHereBtn.setText(Html.fromHtml(loginHereText));
 
         viewModel = new RegisterViewModel(this.getApplication());
 
         viewModel.getRegisterLiveData().observe(this, it -> {
             if (it.getMessege() != null) {
                 Toast.makeText(this, it.getMessege(), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
             }
 
         });
 
 
         // for login button
-        binding.loginBtn.setOnClickListener(v -> {
+        binding.loginHereBtn.setOnClickListener(v -> {
             // goto login screen
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
         });
 
 

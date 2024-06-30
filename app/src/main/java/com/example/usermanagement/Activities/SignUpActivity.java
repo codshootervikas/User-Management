@@ -25,25 +25,35 @@ public class SignUpActivity extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.loginHereBtn.setText(Html.fromHtml(loginHereText));
-
         viewModel = new RegisterViewModel(this.getApplication());
+        buttonClicks();
+        init();
 
+    }
+
+    
+    private void init(){
+        binding.loginHereBtn.setText(Html.fromHtml(loginHereText));
         viewModel.getRegisterLiveData().observe(this, it -> {
             if (it.getMessege() != null) {
                 Toast.makeText(this, it.getMessege(), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
             }
-
         });
+    }
 
+    private Boolean isEmailValid(String email) {
+        Regex emailRegex = new Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
+        return emailRegex.matches(email);
+    }
+
+    private void buttonClicks(){
 
         // for login button
         binding.loginHereBtn.setOnClickListener(v -> {
             // goto login screen
             startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
         });
-
 
         // register button
         binding.registerBtn.setOnClickListener(v -> {
@@ -69,12 +79,5 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     }
-
-
-    private Boolean isEmailValid(String email) {
-        Regex emailRegex = new Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
-        return emailRegex.matches(email);
-    }
-
 
 }

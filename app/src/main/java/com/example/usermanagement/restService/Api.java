@@ -18,7 +18,4 @@ public interface Api {
     );
 
 
-
-
-//    Call<RegisterResponse> register(Button registerBtn);
 }

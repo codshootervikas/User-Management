@@ -1,6 +1,7 @@
 package com.example.usermanagement.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -12,15 +13,18 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     String registerHereText = "<span> Not register | <font color='#0342FF'><b>Create your Account</b></font> </span>";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        buttonClicks();
         binding.registerHereBtn.setText(Html.fromHtml(registerHereText));
+    }
 
+
+    private void buttonClicks() {
 
         // login button
         binding.loginBtn.setOnClickListener(v -> {
@@ -29,12 +33,11 @@ public class LoginActivity extends AppCompatActivity {
             else if (binding.passwordLayout.getEditText().getText().toString().isEmpty())
                 Toast.makeText(this, "please enter password", Toast.LENGTH_SHORT).show();
             else
-                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
         });
 
-        binding.registerHereBtn.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-        });
+        // register button
+        binding.registerHereBtn.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
 
 
     }
